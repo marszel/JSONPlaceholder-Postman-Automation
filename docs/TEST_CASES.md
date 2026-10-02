@@ -58,6 +58,7 @@
 <!-- In a commercial environment, a 400 Bad Request error would be expected here, but for this specific case, I adapt the test to match the behavior of this test application. -->
 1. Response status code is "201 Created". 
 2. Response body contains an object with an automatically assigned "id".
+3. Response body contains undefined fields: "body", "title" and "userId".
 
 ## TC_007: Verify updating an existing post entirely (PUT)
 * **Preconditions:** The API service is running and available. 
@@ -96,3 +97,4 @@
 1. Send a "DELETE" request to "https://jsonplaceholder.typicode.com/posts/1".
 * **Expected Result:**
 1. Response status code is "200 OK".
+2. Response body is an empty object {}.

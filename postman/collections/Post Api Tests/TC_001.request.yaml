@@ -1,0 +1,23 @@
+$kind: http-request
+description: ""
+url: https://jsonplaceholder.typicode.com/posts
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      // Test 1
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      // Test 2
+      pm.test("Response is an array", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.be.an("array");
+      });
+      //Test 3
+      pm.test("Each post has required filds", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData[0]).to.have.all.keys("userId", "id", "title", "body");
+      });
+    language: text/javascript
+order: 1790928462030

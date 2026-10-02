@@ -1,0 +1,23 @@
+$kind: http-request
+url: https://jsonplaceholder.typicode.com/posts
+method: POST
+body:
+  type: json
+  content: "{}"
+scripts:
+  - type: afterResponse
+    code: |-
+      // Test 1
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+      // Test 2
+      pm.test("Response body contains only automatically assigned ID", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.id).to.eql(101);
+          pm.expect(jsonData.title).to.be.undefined;
+          pm.expect(jsonData.userId).to.be.undefined;
+          pm.expect(jsonData.body).to.be.undefined;
+      });
+    language: text/javascript
+order: 4468350628036016

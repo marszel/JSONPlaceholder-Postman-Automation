@@ -1,0 +1,28 @@
+$kind: http-request
+url: https://jsonplaceholder.typicode.com/posts
+method: POST
+body:
+  type: json
+  content: |-
+    {
+    	"title": "New Test POST",
+    	"body": "This is a test post body.",
+    	"userId": 1
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      // Test 1
+      pm.test("Status code is 201", function () {
+          pm.response.to.have.status(201);
+      });
+      // Test 2
+      pm.test("Response body matches created post data and has an ID", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.title).to.eql("New Test POST");
+          pm.expect(jsonData.body).to.eql("This is a test post body.");
+          pm.expect(jsonData.userId).to.eql(1);
+          pm.expect(jsonData.id).to.eql(101);
+      });
+    language: text/javascript
+order: 4450480974283746

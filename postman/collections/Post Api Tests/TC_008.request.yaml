@@ -1,0 +1,26 @@
+$kind: http-request
+url: https://jsonplaceholder.typicode.com/posts/1
+method: PATCH
+body:
+  type: json
+  content: |-
+    {
+      "title": "Partially Updated Title"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      // Test 1
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      // Test 2
+      pm.test("Respose body reflects partly updated post data", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.title).to.eql("Partially Updated Title");
+          pm.expect(jsonData.id).to.eql(1);
+          pm.expect(jsonData.body).to.exist;
+          pm.expect(jsonData.userId).to.exist;
+      });
+    language: text/javascript
+order: 4501675452436633

@@ -1,0 +1,29 @@
+$kind: http-request
+url: https://jsonplaceholder.typicode.com/posts/1
+method: PUT
+body:
+  type: json
+  content: |-
+    {
+      "id": 1,
+      "title": "Updated Title",
+      "body": "Updated body",
+      "userId": 1
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      // Test 1
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      // Test 2
+      pm.test("Respose body reflects completely updated post data", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.id).to.eql(1);
+          pm.expect(jsonData.title).to.eql("Updated Title");
+          pm.expect(jsonData.body).to.eql("Updated body");
+          pm.expect(jsonData.userId).to.eql(1);
+      });
+    language: text/javascript
+order: 4488155383869020

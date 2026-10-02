@@ -1,0 +1,18 @@
+$kind: http-request
+url: https://jsonplaceholder.typicode.com/posts/1
+method: DELETE
+scripts:
+  - type: afterResponse
+    code: |-
+      // Test 1
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+      //Test 2
+      pm.test("Response body is an empty object", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.be.an("object");
+          pm.expect(Object.keys(jsonData).length).to.eql(0);
+      });
+    language: text/javascript
+order: 4502748217112103

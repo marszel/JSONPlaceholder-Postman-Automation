@@ -1,2 +1,7 @@
 .idea/
 .DS_Store
+.postman/
+postman/globals/
+postman/environments/
+*.log
+postman/collections/**/.resources/
